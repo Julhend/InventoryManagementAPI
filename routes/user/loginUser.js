@@ -5,17 +5,22 @@ const jwt = require('jsonwebtoken')
 const secret = 'kata rahasia saya'
 
 app.post('/login', (req, res) => {
-
-    const result = db.get('users', req.body)
-
-    if (result) {
-        result.token = jwt.sign(result, secret, {
-            expiresIn: '3h'
+    db.get('users', req.body)
+        .then(result => {
+            const composedResult = result[0]
+            if (composedResult) {
+                const token = jwt.sign(composedResult, secret, {
+                    expiresIn: '3h'
+                })
+                composedResult.token = token
+                res.send(composedResult)
+            } else {
+                res.status(401).send('unauthorized')
+            }
         })
-        res.send(result)
-    } else {
-        res.status(401).send('unauthorized')
-    }
+        .catch(err => {
+            res.status(500).send(err)
+        })
 })
 
 module.exports = app
