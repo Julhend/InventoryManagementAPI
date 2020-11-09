@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express.Router()
 const db = require('../../controller/dbController')
+const mysqlErrorHandler = require('../../controller/midleware/errorMiddleware')
 // const uid = require('uid')
 
 app.post('/register', (req, res) => {
@@ -19,5 +20,6 @@ app.post('/register', (req, res) => {
         })
 
 })
+app.use(mysqlErrorHandler)
 
 module.exports = app

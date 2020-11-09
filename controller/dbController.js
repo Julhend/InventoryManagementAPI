@@ -1,7 +1,7 @@
 const dbConn = require("./connection/db.Connection")
 const _ = require("lodash")
-const { v4: uuidv4 } = require('uuid');
 const humps = require('humps')
+const { v4: uuidv4 } = require('uuid');
 
 function chainWhere(object) {
   const parsedObject = humps.decamelizeKeys(object)
@@ -48,7 +48,7 @@ function createInsertColumn(object) {
 }
 
 function get(tableName, searchParameters) {
-  let query = `SELECT * from ${tableName}`
+  let query = `SELECT * from ${tableName} `
   const searchParameterKeys = Object.keys(searchParameters)
   if (searchParameterKeys.length) {
     query += `WHERE ${chainWhere(searchParameters)}`
@@ -70,9 +70,11 @@ function get(tableName, searchParameters) {
 
 
 function add(tableName, body) {
-  body.id = uuidv4
+  // const id = uuidv4()
+  // body.id = id
+  body.id = uuidv4()
   const columnValue = createInsertColumn(body)
-  let query = `INSERT INTO ${tableName}(${columnValue.columns})
+  let query = `INSERT INTO ${tableName} (${columnValue.columns})
   VALUES (${columnValue.values})`
   return new Promise((resolve, reject) => {
     dbConn.query(query, (err, result) => {

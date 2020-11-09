@@ -16,21 +16,3 @@ passport.use(new BearerStrategy(
     }
 ))
 module.exports = passport
-
-// function authentication(req, res, next) {
-
-//     const authorization = req.headers.authorization
-//     if (authorization) {
-//         const token = authorization.split(' ')[1]
-//         try {
-//             const tokenPayload = jwt.verify(token, secret)
-//             req.user = tokenPayload
-//             next()
-//         } catch (error) {
-//             res.status(401).send('token expired, please login')
-//         }
-//     } else {
-//         res.status(401).send('token nya gda')
-//     }
-// }
-// module.exports = authentication

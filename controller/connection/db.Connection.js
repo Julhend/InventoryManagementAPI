@@ -2,7 +2,7 @@ const mysql = require('mysql')
 
 const dbConn = mysql.createConnection({
     host: 'localhost',
-    database: 'db_Inventory',
+    database: 'dbstores',
     user: 'root',
     password: 'tunxiex'
 })
