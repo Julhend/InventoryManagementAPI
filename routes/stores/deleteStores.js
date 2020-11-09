@@ -22,4 +22,5 @@ app.delete('/stores', passport.authenticate('bearer', { session: false }), (req,
 })
 
 app.use(mysqlErrorHandler)
+
 module.exports = app

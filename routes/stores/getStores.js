@@ -6,7 +6,7 @@ const mysqlErrorHandler = require('../../controller/midleware/errorMiddleware')
 
 //app.use(passport.authenticate('bearer', { session: false }))
 
-app.get('/stores', passport.authenticate('bearer', { session: false }), (req, res) => {
+app.get('/stores', passport.authenticate('bearer', { session: false }), (req, res, next) => {
     const query = req.query
     const id = req.user.id
     query.userId = id
@@ -20,4 +20,5 @@ app.get('/stores', passport.authenticate('bearer', { session: false }), (req, re
 })
 
 app.use(mysqlErrorHandler)
+
 module.exports = app
