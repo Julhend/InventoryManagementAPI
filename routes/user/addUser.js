@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express.Router()
 const db = require('../../controller/dbController')
-const uid = require('uid')
+// const uid = require('uid')
 
 app.post('/register', (req, res) => {
     const body = req.body
