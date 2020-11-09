@@ -10,7 +10,7 @@ app.post('/login', (req, res) => {
             const composedResult = result[0]
             if (composedResult) {
                 const token = jwt.sign(composedResult, secret, {
-                    expiresIn: '3h'
+                    expiresIn: '6h'
                 })
                 composedResult.token = token
                 res.send(composedResult)

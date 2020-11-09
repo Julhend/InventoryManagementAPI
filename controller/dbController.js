@@ -37,7 +37,7 @@ function chainSet(object) {
 function createInsertColumn(object) {
   const parsedObject = humps.decamelizeKeys(object)
   return {
-    column: Object.keys(parsedObject),
+    columns: Object.keys(parsedObject),
     values: Object.values(parsedObject).map(val => {
       if (typeof val === 'string')
         return `"${val}"`
@@ -70,8 +70,6 @@ function get(tableName, searchParameters) {
 
 
 function add(tableName, body) {
-  // const id = uuidv4()
-  // body.id = id
   body.id = uuidv4()
   const columnValue = createInsertColumn(body)
   let query = `INSERT INTO ${tableName} (${columnValue.columns})
@@ -104,7 +102,7 @@ function edit(tableName, id, body) {
 
 
 function remove(tableName, searchParameters) {
-  let query = `DELETE FROM ${tableName}`
+  let query = `DELETE FROM ${tableName} `
   const searchParameterKeys = Object.keys(searchParameters)
   if (searchParameterKeys.length) {
     query += `WHERE ${chainWhere(searchParameters)}`
@@ -114,7 +112,7 @@ function remove(tableName, searchParameters) {
       if (err) {
         reject(err)
       } else {
-        resolve(ok)
+        resolve('Data has been removed')
       }
     })
   })

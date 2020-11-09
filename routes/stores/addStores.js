@@ -6,7 +6,7 @@ const mysqlErrorHandler = require('../../controller/midleware/errorMiddleware')
 
 //app.use(passport.authenticate('bearer', { session: false }))
 
-app.post('/stores', passport.authenticate('bearer', { session: false }), (req, res) => {
+app.post('/stores', passport.authenticate('bearer', { session: false }), (req, res, next) => {
     const body = req.body
     body.userId = req.user.id
     db.add('stores', body)
@@ -20,7 +20,6 @@ app.post('/stores', passport.authenticate('bearer', { session: false }), (req, r
         .catch(err => {
             next(err)
         })
-
 })
 
 app.use(mysqlErrorHandler)
