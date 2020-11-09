@@ -5,10 +5,9 @@ const passport = require('../../controller/midleware/authenticationMiddleware')
 
 //app.use(passport.authenticate('bearer', { session: false }))
 
-app.post('/stores', passport.authenticate('bearer', { session: false }), (req, res) => {
+app.delete('/stores', passport.authenticate('bearer', { session: false }), (req, res) => {
     const body = req.body
-    body.userId = req.user.id
-    db.add('stores', body)
+    db.remove('stores', body)
         .then(result => {
             if (!result) {
                 res.status(400).send('Wrong body')
@@ -19,7 +18,6 @@ app.post('/stores', passport.authenticate('bearer', { session: false }), (req, r
         .catch(err => {
             res.status(500).send(err)
         })
-
 })
 
 module.exports = app

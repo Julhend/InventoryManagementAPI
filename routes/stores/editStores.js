@@ -5,10 +5,10 @@ const passport = require('../../controller/midleware/authenticationMiddleware')
 
 //app.use(passport.authenticate('bearer', { session: false }))
 
-app.post('/stores', passport.authenticate('bearer', { session: false }), (req, res) => {
+app.patch('/stores', passport.authenticate('bearer', { session: false }), (req, res) => {
     const body = req.body
-    body.userId = req.user.id
-    db.add('stores', body)
+    const id = req.query.id
+    db.edit('stores', id, body)
         .then(result => {
             if (!result) {
                 res.status(400).send('Wrong body')
