@@ -5,7 +5,7 @@ const mysqlErrorHandler = require('../../controller/midleware/errorMiddleware')
 const { salt } = require('../../helper/bcryptHelper')
 // const uid = require('uid')
 
-app.post('/register', (req, res) => {
+app.post('/register', (req, res, next) => {
     const username = req.body.username
     const password = req.body.password
     salt(password)
@@ -26,7 +26,7 @@ app.post('/register', (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).send(err)
+            next(err)
         })
 
 })
